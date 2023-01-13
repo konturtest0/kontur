@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Chart
+metadata:
+  name: kontur-app
+  version: 1.0.0
+  description: Test
+dependencies:
+- name: nginx
+  version: 1.19.0
+  repository: https://kubernetes-charts.storage.googleapis.com/
+
+values:
+  replicaCount: 1
+  javaApp:
+    image:
+      repository: kontur-app
+      tag: latest
+      pullPolicy: IfNotPresent
+    service:
+      type: ClusterIP
+      port: 8080
+  nginx:
+    service:
+      type: ClusterIP
+      port: 80
+    ingress:
+      enabled: true
+      path: /
+      host: kontur-app.local
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "1Gi"
+
+templates:
+- deployment-kontur-app.yaml
+- service-kontur-app.yaml
+- deployment-nginx.yaml
+- service-nginx.yaml
+- ingress.yaml
