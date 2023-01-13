@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-kontur-app
+  labels:
+    app: {{ .Release.Name }}-kontur-app
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Release.Name }}-kontur-app
+  template:
+    metadata:
+      labels:
+        app: {{ .Release.Name }}-kontur-app
+    spec:
+      containers:
+      - name: {{ .Release.Name }}-kontur-app
+        image: {{ .Values.javaApp.image.repository }}:{{ .Values.javaApp.image.tag }}
+        imagePullPolicy: {{ .Values.javaApp.image.pullPolicy }}
+        ports:
+        - containerPort: {{ .Values.javaApp.service.port }}
+        resources:
+          limits:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
+          requests:
+            cpu: {{ .Values.resources.limits.cpu }}
+            memory: {{ .Values.resources.limits.memory }}
