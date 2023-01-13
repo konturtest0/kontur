@@ -16,10 +16,10 @@ spec:
     spec:
       containers:
       - name: {{ .Release.Name }}-kontur-app
-        image: {{ .Values.javaApp.image.repository }}:{{ .Values.javaApp.image.tag }}
-        imagePullPolicy: {{ .Values.javaApp.image.pullPolicy }}
+        image: {{ .Values.konturApp.image.repository }}:{{ .Values.javaApp.image.tag }}
+        imagePullPolicy: {{ .Values.konturApp.image.pullPolicy }}
         ports:
-        - containerPort: {{ .Values.javaApp.service.port }}
+        - containerPort: {{ .Values.konturApp.service.port }}
         resources:
           limits:
             cpu: {{ .Values.resources.limits.cpu }}
