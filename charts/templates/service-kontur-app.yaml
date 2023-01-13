@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-kontur-app
+  labels:
+    app: {{ .Release.Name }}-kontur-app
+spec:
+  selector:
+    app: {{ .Release.Name }}-kontur-app
+  ports:
+  - name: http
+    port: {{ .Values.konturApp.service.port }}
+    targetPort: {{ .Values.konturApp.service.port }}
+  type: {{ .Values.konturApp.service.type }}
